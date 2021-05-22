@@ -4,14 +4,19 @@ import Header from './component/Header'
 import Footer from './component/Footer'
 import Home from './component/Home'
 import Signin from './component/Signin'
-const Routes = ()=>{
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Routes = ({user})=>{
   return (
     <BrowserRouter>
-    <Header/>
+    <Header user = {user}/>
     <Switch>
       <Route path='/signin' exact component={Signin}/>
       <Route path="/" exact component={Home}></Route>
     </Switch>
+    <ToastContainer/>
     <Footer/>
     </BrowserRouter>
   );

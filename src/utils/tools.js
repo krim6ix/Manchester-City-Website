@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import mCityLogo from '../Resources/images/logos/manchester_city_logo.png';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CityLogo = ({width,height,linkTo,link})=>{
     const template = <div 
@@ -26,4 +27,12 @@ export const CityLogo = ({width,height,linkTo,link})=>{
     else{
         return template;
     }
+}
+
+export const showErrorToast = (msg)=>{
+    toast.error(msg);
+}
+
+export const showSuccessToast = (msg)=>{
+    toast.success(msg);
 }

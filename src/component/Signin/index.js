@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import {firebase} from '../../firebase';
 import { CircularProgress } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-const Signin = ()=>{
+
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {showErrorToast, showSuccessToast} from '../../utils/tools'
+const Signin = (props)=>{
     const [loading,setLoading] = useState(false);
+    
     const formik = useFormik({
         initialValues:{
-            email:'',
-            password:'',
+            email:'tusharkhatri122@gmail.com',
+            password:'tushar123',
         },
         validationSchema:Yup.object({
             email:Yup.string()
@@ -19,9 +25,23 @@ const Signin = ()=>{
         }),
         onSubmit: (values)=>{
             setLoading(true);
-            console.log(values);
+            submitForm(values);
         }
     })
+
+    const submitForm = (values)=>{
+        firebase.auth()
+        .signInWithEmailAndPassword(
+            values.email,
+            values.password
+        ).then(res=>{
+            showSuccessToast ('Logged In')
+            props.history.push('/dashboard');
+        }).catch(err=>{
+            setLoading(false);     
+            showErrorToast ('Username/password not matched')    
+        })
+    }
     const errors=[]
     return(
         <div >
